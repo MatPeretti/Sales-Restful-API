@@ -14,7 +14,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/client")
 public class ClientController {
-
     public Clients clients;
 
     public ClientController(Clients clients){
@@ -32,6 +31,4 @@ public class ClientController {
 
         return ResponseEntity.notFound().build();
     }
-
-
 }
