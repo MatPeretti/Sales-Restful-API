@@ -2,13 +2,17 @@ package com.restfulapi.sales.controller;
 
 import com.restfulapi.sales.domain.entity.Client;
 import com.restfulapi.sales.domain.repository.Clients;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/client")
 public class ClientController {
     public Clients clients;
@@ -17,41 +21,50 @@ public class ClientController {
         this.clients = clients;
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity getClientById(@PathVariable Integer id) {
-        Optional<Client> client = clients.findById(id);
+    @GetMapping
+    public List<Client> find(Client filter) {
+        ExampleMatcher matcher = ExampleMatcher
+                .matching()
+                .withIgnoreCase()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
 
-        if (client.isPresent()) {
-            return ResponseEntity.ok(client.get());
-        }
-        return ResponseEntity.notFound().build();
+        Example example = Example.of(filter, matcher);
+        return clients.findAll(example);
+    }
+
+    @GetMapping("{id}")
+    public Client getClientById(@PathVariable Integer id) {
+        return clients
+                .findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found"));
     }
 
     @PostMapping
-    public ResponseEntity save(@RequestBody Client client) {
-        Client savedClient = clients.save(client);
-        return ResponseEntity.ok(savedClient);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Client save(@RequestBody Client client) {
+        return clients.save(client);
     }
 
     @DeleteMapping({"{id}"})
-    public ResponseEntity delete(@PathVariable Integer id) {
-        Optional<Client> client = clients.findById(id);
-
-        if (client.isPresent()) {
-            clients.delete(client.get());
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Integer id) {
+        clients.findById(id)
+                .map(client -> {
+                    clients.delete(client);
+                    return Void.TYPE;
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found"));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity update(@PathVariable Integer id, @RequestBody Client client) {
-        return clients.findById(id)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable Integer id, @RequestBody Client client) {
+        clients.findById(id)
                 .map(existingClient -> {
                     client.setId(existingClient.getId());
                     clients.save(client);
-                    return ResponseEntity.noContent().build();
+                    return existingClient;
                 })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found"));
     }
 }
