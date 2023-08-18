@@ -1,16 +1,14 @@
-package com.restfulapi.sales.controller;
+package com.restfulapi.sales.rest.controller;
 
 import com.restfulapi.sales.domain.entity.Client;
 import com.restfulapi.sales.domain.repository.Clients;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/client")

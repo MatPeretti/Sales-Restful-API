@@ -1,4 +1,4 @@
-package com.restfulapi.sales.controller;
+package com.restfulapi.sales.rest.controller;
 
 import com.restfulapi.sales.domain.entity.Product;
 import com.restfulapi.sales.domain.repository.Products;

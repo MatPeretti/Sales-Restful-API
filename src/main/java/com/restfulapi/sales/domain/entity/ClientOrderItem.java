@@ -18,7 +18,7 @@ public class ClientOrderItem {
     private Product product;
 
     @Column
-    private Integer quantidade;
+    private Integer quantity;
 
     public Integer getId() {
         return id;
@@ -45,10 +45,10 @@ public class ClientOrderItem {
     }
 
     public Integer getQuantidade() {
-        return quantidade;
+        return quantity;
     }
 
     public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
+        this.quantity = quantity;
     }
 }
