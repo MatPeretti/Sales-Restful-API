@@ -1,4 +1,4 @@
-package com.restfulapi.sales.rest.controller.dto;
+package com.restfulapi.sales.rest.dto;
 
 import lombok.*;
 import java.math.BigDecimal;

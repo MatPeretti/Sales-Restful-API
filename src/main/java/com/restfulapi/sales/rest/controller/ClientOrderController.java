@@ -1,7 +1,7 @@
 package com.restfulapi.sales.rest.controller;
 
 import com.restfulapi.sales.domain.entity.ClientOrder;
-import com.restfulapi.sales.rest.controller.dto.ClientOrderDTO;
+import com.restfulapi.sales.rest.dto.ClientOrderDTO;
 import com.restfulapi.sales.service.ClientOrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

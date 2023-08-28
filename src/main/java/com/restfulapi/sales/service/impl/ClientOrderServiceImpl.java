@@ -9,12 +9,11 @@ import com.restfulapi.sales.domain.repository.ClientOrders;
 import com.restfulapi.sales.domain.repository.Clients;
 import com.restfulapi.sales.domain.repository.Products;
 import com.restfulapi.sales.exception.invalidCode;
-import com.restfulapi.sales.rest.controller.dto.ClientOrderDTO;
-import com.restfulapi.sales.rest.controller.dto.ClientOrderItemDTO;
+import com.restfulapi.sales.rest.dto.ClientOrderDTO;
+import com.restfulapi.sales.rest.dto.ClientOrderItemDTO;
 import com.restfulapi.sales.service.ClientOrderService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -61,7 +60,7 @@ public class ClientOrderServiceImpl implements ClientOrderService {
                     Integer productId = dto.getProduct();
                     Product product = productsRepository
                             .findById(productId)
-                            .orElseThrow(() -> new invalidCode("Product ID not found " + productId));
+                            .orElseThrow(() -> new invalidCode("Product ID not found: " + productId));
 
                     ClientOrderItem orderItem = new ClientOrderItem();
                     orderItem.setQuantity(dto.getQuantity());
