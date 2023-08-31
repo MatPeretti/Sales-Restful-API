@@ -1,5 +1,6 @@
 package com.restfulapi.sales.rest.controller;
 
+import com.restfulapi.sales.exception.OrderNotFoundException;
 import com.restfulapi.sales.rest.ApiErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,11 +13,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ApplicationControllerAdvice {
-
     @ExceptionHandler(invalidCode.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiErrors handleInvalidCode(invalidCode invalidCode){
         String errorMessage = invalidCode.getMessage();
         return new ApiErrors(errorMessage);
+    }
+
+    @ExceptionHandler(OrderNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiErrors handleOrderNotFoundException(OrderNotFoundException exception) {
+        return new ApiErrors(exception.getMessage());
     }
 }

@@ -2,9 +2,11 @@ package com.restfulapi.sales.rest.controller;
 
 import com.restfulapi.sales.domain.entity.ClientOrder;
 import com.restfulapi.sales.domain.entity.ClientOrderItem;
+import com.restfulapi.sales.domain.enums.OrderStatus;
 import com.restfulapi.sales.rest.dto.ClientOrderDTO;
 import com.restfulapi.sales.rest.dto.ClientOrderInformationsDTO;
 import com.restfulapi.sales.rest.dto.ClientOrderItemInformationDTO;
+import com.restfulapi.sales.rest.dto.OrderStatusUpdateDTO;
 import com.restfulapi.sales.service.ClientOrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
@@ -39,6 +41,12 @@ public class ClientOrderController {
                 .map(p -> convert(p))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found"));
     }
+    @PatchMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateOrderStatus(@PathVariable Integer id, @RequestBody OrderStatusUpdateDTO orderStatusUpdateDTO){
+        String newOrderStatus = orderStatusUpdateDTO.getNewStatus();
+        service.updateOrder(id, OrderStatus.valueOf(newOrderStatus));
+    }
 
     public ClientOrderInformationsDTO convert(ClientOrder order){
         return ClientOrderInformationsDTO
@@ -47,6 +55,7 @@ public class ClientOrderController {
                 .clientName(order.getClient().getName())
                 .total(order.getTotal())
                 .orderDate(order.getOrderDate().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")))
+                .orderStatus(order.getOrderStatus().name())
                 .items(convert(order.getClientOrderItems()))
                 .build();
     }

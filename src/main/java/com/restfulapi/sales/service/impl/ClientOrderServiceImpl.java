@@ -4,10 +4,12 @@ import com.restfulapi.sales.domain.entity.Client;
 import com.restfulapi.sales.domain.entity.ClientOrder;
 import com.restfulapi.sales.domain.entity.ClientOrderItem;
 import com.restfulapi.sales.domain.entity.Product;
+import com.restfulapi.sales.domain.enums.OrderStatus;
 import com.restfulapi.sales.domain.repository.ClientOrderItems;
 import com.restfulapi.sales.domain.repository.ClientOrders;
 import com.restfulapi.sales.domain.repository.Clients;
 import com.restfulapi.sales.domain.repository.Products;
+import com.restfulapi.sales.exception.OrderNotFoundException;
 import com.restfulapi.sales.exception.invalidCode;
 import com.restfulapi.sales.rest.dto.ClientOrderDTO;
 import com.restfulapi.sales.rest.dto.ClientOrderItemDTO;
@@ -42,6 +44,7 @@ public class ClientOrderServiceImpl implements ClientOrderService {
         clientorder.setTotal(dto.getTotal());
         clientorder.setOrderDate(LocalDate.now());
         clientorder.setClient(client);
+        clientorder.setOrderStatus(OrderStatus.COMPLETED);
 
         List<ClientOrderItem> orderItems = saveItems(clientorder, dto.getItems());
         repository.save(clientorder);
@@ -75,4 +78,15 @@ public class ClientOrderServiceImpl implements ClientOrderService {
     public Optional<ClientOrder> getFullOrder (Integer id){
         return repository.findByIdFetchClientOrderItems(id);
     }
+
+    @Override
+    @Transactional
+    public void updateOrder(Integer id, OrderStatus orderStatus) {
+        repository.findById(id)
+                .map(order -> {
+                    order.setOrderStatus(orderStatus);
+                    return repository.save(order);
+                }).orElseThrow(OrderNotFoundException::new);
+    }
+
 }

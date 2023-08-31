@@ -1,6 +1,8 @@
 package com.restfulapi.sales.domain.entity;
 
+import com.restfulapi.sales.domain.enums.OrderStatus;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.Order;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -27,6 +29,10 @@ public class ClientOrder {
 
     @Column(name = "total", precision = 20, scale = 2)
     private BigDecimal total;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status")
+    private OrderStatus orderStatus;
 
     @OneToMany(mappedBy = "clientOrder")
     private List<ClientOrderItem> clientOrderItems;
