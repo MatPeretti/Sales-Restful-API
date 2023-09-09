@@ -13,6 +13,7 @@ import java.util.List;
 @Builder
 public class ClientOrderInformationsDTO {
     private Integer orderId;
+    private String cpf;
     private String clientName;
     private BigDecimal total;
     private String orderDate;

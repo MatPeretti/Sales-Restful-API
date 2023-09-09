@@ -53,6 +53,7 @@ public class ClientOrderController {
                 .builder()
                 .orderId(order.getId())
                 .clientName(order.getClient().getName())
+                .cpf(order.getClient().getCpf())
                 .total(order.getTotal())
                 .orderDate(order.getOrderDate().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")))
                 .orderStatus(order.getOrderStatus().name())
