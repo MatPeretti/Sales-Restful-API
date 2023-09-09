@@ -2,7 +2,9 @@ package com.restfulapi.sales.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.Set;
 @Data
@@ -17,9 +19,12 @@ public class Client {
     private Integer id;
 
     @Column(name = "name", length = 100)
+    @NotEmpty(message = "Name cannot be empty")
     private String name;
 
     @Column(name = "cpf", length = 11)
+    @NotEmpty(message = "CPF cannot me empty")
+    @CPF(message = "Invalid CPF format")
     private String cpf;
 
     @JsonIgnore

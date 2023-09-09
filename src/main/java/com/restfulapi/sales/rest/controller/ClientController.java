@@ -2,6 +2,7 @@ package com.restfulapi.sales.rest.controller;
 
 import com.restfulapi.sales.domain.entity.Client;
 import com.restfulapi.sales.domain.repository.Clients;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,7 @@ public class ClientController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Client save(@RequestBody Client client) {
+    public Client save(@RequestBody @Valid Client client) {
         return clients.save(client);
     }
 
