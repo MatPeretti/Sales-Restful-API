@@ -8,6 +8,7 @@ import com.restfulapi.sales.rest.dto.ClientOrderInformationsDTO;
 import com.restfulapi.sales.rest.dto.ClientOrderItemInformationDTO;
 import com.restfulapi.sales.rest.dto.OrderStatusUpdateDTO;
 import com.restfulapi.sales.service.ClientOrderService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class ClientOrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Integer save(@RequestBody ClientOrderDTO dto){
+    public Integer save(@RequestBody @Valid ClientOrderDTO dto){
         ClientOrder clientorder = service.save(dto);
         return clientorder.getId();
     }
