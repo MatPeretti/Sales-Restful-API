@@ -2,6 +2,7 @@ package com.restfulapi.sales.rest.controller;
 
 import com.restfulapi.sales.domain.entity.Product;
 import com.restfulapi.sales.domain.repository.Products;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Product save(@RequestBody Product product) {
+    public Product save(@RequestBody @Valid Product product) {
         return products.save(product);
     }
 
@@ -54,7 +55,7 @@ public class ProductController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@PathVariable Integer id, @RequestBody Product product) {
+    public void update(@PathVariable Integer id, @RequestBody @Valid Product product) {
         products.findById(id)
                 .map(existingProduct -> {
                     product.setId(existingProduct.getId());

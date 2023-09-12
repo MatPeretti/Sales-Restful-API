@@ -1,6 +1,8 @@
 package com.restfulapi.sales.domain.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -17,8 +19,10 @@ public class Product {
     private Integer id;
 
     @Column(name = "description")
+    @NotEmpty(message = "Description cannot be empty")
     private String description;
 
     @Column(name = "unit_price")
+    @NotNull(message = "Price cannot be null")
     private BigDecimal price;
 }
