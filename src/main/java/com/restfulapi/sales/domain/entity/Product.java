@@ -19,10 +19,10 @@ public class Product {
     private Integer id;
 
     @Column(name = "description")
-    @NotEmpty(message = "Description cannot be empty")
+    @NotEmpty(message = "{requiredfield.description}")
     private String description;
 
     @Column(name = "unit_price")
-    @NotNull(message = "Price cannot be null")
+    @NotNull(message = "{requiredfield.price}")
     private BigDecimal price;
 }
