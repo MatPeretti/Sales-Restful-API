@@ -44,7 +44,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 new UsernamePasswordAuthenticationToken(authDTO.getUsername(), authDTO.getPassword())
         );
         var user = repository.findByUsername(authDTO.getUsername())
-                .orElseThrow();
+                .orElseThrow(() -> new RuntimeException("Auth test error"));
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponseDTO.builder()
                 .token(jwtToken)

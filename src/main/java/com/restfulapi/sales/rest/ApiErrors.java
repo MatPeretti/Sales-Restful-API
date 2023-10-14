@@ -1,6 +1,5 @@
 package com.restfulapi.sales.rest;
 
-import lombok.Data;
 import lombok.Getter;
 
 import java.util.Arrays;
