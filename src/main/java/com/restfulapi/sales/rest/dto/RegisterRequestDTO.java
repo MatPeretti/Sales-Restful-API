@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequestDTO {
+    private String cpf;
     private String firstname;
     private String lastname;
     private String username;

@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/clientorder")
 public class ClientOrderController {
-
     private ClientOrderService service;
 
     public ClientOrderController(ClientOrderService service) {
@@ -53,7 +52,9 @@ public class ClientOrderController {
         return ClientOrderInformationsDTO
                 .builder()
                 .orderId(order.getId())
-                .clientName(order.getClient().getName())
+                .username(order.getClient().getUsername())
+                .clientFirstName(order.getClient().getFirstname())
+                .clientLastName(order.getClient().getLastname())
                 .cpf(order.getClient().getCpf())
                 .total(order.getTotal())
                 .orderDate(order.getOrderDate().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")))

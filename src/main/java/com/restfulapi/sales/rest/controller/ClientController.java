@@ -38,12 +38,6 @@ public class ClientController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found"));
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Client save(@RequestBody @Valid Client client) {
-        return clients.save(client);
-    }
-
     @DeleteMapping({"{id}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id) {

@@ -13,8 +13,10 @@ import java.util.List;
 @Builder
 public class ClientOrderInformationsDTO {
     private Integer orderId;
+    private String username;
     private String cpf;
-    private String clientName;
+    private String clientFirstName;
+    private String clientLastName;
     private BigDecimal total;
     private String orderDate;
     private String orderStatus;

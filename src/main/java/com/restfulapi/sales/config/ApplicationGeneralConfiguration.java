@@ -1,6 +1,6 @@
 package com.restfulapi.sales.config;
 
-import com.restfulapi.sales.domain.repository.UserRepository;
+import com.restfulapi.sales.domain.repository.Clients;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,11 +17,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationGeneralConfiguration {
 
-    private final UserRepository userRepository;
+    private final Clients repository;
 
     @Bean
     public UserDetailsService userDetailsService(){
-        return username -> userRepository.findByUsername(username)
+        return username -> repository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
