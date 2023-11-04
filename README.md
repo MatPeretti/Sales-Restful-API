@@ -127,10 +127,10 @@ The client's role, which can be one of the following values: "user" (for regular
 
 **DELETE** `/client/{id}`<br>
 
+**Status Code:** 204 No Content
+
 This endpoint allows you to delete a client by sending a `DELETE` request to `/client/{id}`.
 Upon successful deletion, the server will respond with a `204 No Content` status code. This indicates that the client has been deleted, and there is no response body.
-
-**Status Code:** 204 No Content
 
 <hr>
 
